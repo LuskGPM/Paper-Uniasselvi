@@ -1,0 +1,64 @@
+@import url(paleta.css);
+
+main {
+    background-color: var(--principal);
+}
+
+.container {
+    display: grid;
+}
+
+.info-main.container {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 100px;
+    grid-auto-flow: column;
+    justify-items: center;
+    align-items: center;
+    box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.249);
+    background-color: white;
+}
+
+.info-main .item {
+    text-align: center;
+    font-size: 1.1em;
+    padding: 10px;
+}
+
+.info-main .item h3 {
+    font-size: 1.6em;
+    color: var(--myrtle-green);
+    font-weight: 700;
+}
+
+.question-main h1 {
+    font-size: 1.8em;
+    color: var(--gunmetal);
+    font-weight: 700;
+    padding: 20px;
+}
+
+.question-main.container {
+    padding: 50px 15px;
+    grid-auto-flow: row;
+    justify-items: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.question-main .item {
+    width: 100%;
+    min-height: 150px;
+    border-radius: 30px;
+    padding: 10px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: white;
+    box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.249);
+}
+
+.contatos.container {
+    grid-auto-flow: column;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 50px 15px;
+}
