@@ -31,3 +31,15 @@
         display: none;
     }
 }
+
+@media screen and (min-width: 1024px) {
+    header {
+        height: 650px;
+    }
+
+    nav {
+        max-width: 900px;
+        padding: 30px;
+    }
+    
+}
