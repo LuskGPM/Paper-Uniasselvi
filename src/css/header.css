@@ -73,6 +73,7 @@ nav h2 a:hover {
     max-height: 500px;
     transition: max-height 0.6s ease-in-out;
 }
+
 #sanduiche {
     justify-self: end;
     font-size: 2em;
@@ -101,6 +102,7 @@ nav h2 a:hover {
     from {
         max-height: 0;
     }
+
     to {
         max-height: 300px;
     }
