@@ -35,6 +35,7 @@
 @media screen and (min-width: 1024px) {
     header {
         height: 650px;
+        background-image: url(../img/background-header-high.jpg);
     }
 
     nav {
