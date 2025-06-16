@@ -6,7 +6,7 @@ header {
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    height: 400px;
+    height: 450px;
     padding: 15px;
     display: grid;
     grid-template-rows: auto 1fr;
@@ -15,15 +15,30 @@ header {
 
 nav {
     position: sticky;
-    top: 0;
+    top: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 50px 1fr;
     align-items: center;
     background-color: var(--principal-header);
-    padding: 10px 20px;
+    padding: 10px 30px;
     border-radius: 2em;
     box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.384);
+}
+
+nav h2 {
+    font-size: 2em;
+}
+
+nav h2 a {
+    color: var(--gunmetal);
+    text-decoration: none;
+    font-weight: 700;
+    transition: linear 0.2s;
+}
+
+nav h2 a:hover {
+    color: var(--sandy-brown);
 }
 
 .colapse {
@@ -35,7 +50,7 @@ nav {
     gap: 5px;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease-in-out;
+    transition: max-height 0.2s ease-out;
 }
 
 .colapse a {
@@ -46,12 +61,12 @@ nav {
     color: white;
     transition: linear 0.4s;
     border-radius: 5px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.603);
 }
 
 .colapse a:hover {
     cursor: pointer;
-    background-color: var(--green);
-    color: var(--myrtle-green);
+    background-color: var(--sandy-brown);
 }
 
 .colapse.aberto {
@@ -61,7 +76,6 @@ nav {
 #sanduiche {
     justify-self: end;
     font-size: 2em;
-    transition: animation 0.4 ease-in-out;
 }
 
 #sanduiche:hover {

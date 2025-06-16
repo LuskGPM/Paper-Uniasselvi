@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/css/header.css">
     <link rel="stylesheet" href="src/css/main.css">
+    <link rel="stylesheet" href="src/css/footer.css">
+    <link rel="stylesheet" href="src/css/media.css">
     <title>Gestão de produtos</title>
 </head>
 
@@ -23,7 +26,6 @@
                 <a href="#" class="fcorpo">Estoque</a>
                 <a href="#" class="fcorpo">Cadastro</a>
                 <a href="#" class="fcorpo">Preços</a>
-                <a href="#" class="fcorpo">Login</a>
             </div>
         </nav>
         <section class="info-header">
@@ -32,7 +34,7 @@
         </section>
     </header>
     <main>
-        <section class="info-main container">
+        <section id="info-main" class="info-main container">
             <div class="item">
                 <h3 class="quantidade" id="quant-1">01</h3>
                 <p>Produtos</p>
@@ -62,25 +64,27 @@
             </div>
         </section>
         <section class="contatos container">
+            <h2>Contatos Úteis</h2>
             <div class="item">
                 <h3>Telefone</h3>
-                <p>(00) 0000-0000</p>
+                <p>(99) 0000-0000</p>
             </div>
             <div class="item">
                 <h3>Email</h3>
-                <p>zEg9Y@example.com</p>
+                <p>example@gmail.com</p>
             </div>
         </section>
     </main>
-    <footer>
+    <footer class="container">
         <div class="links-footer">
-            <a href="#">Inicio</a>
+            <a href="#info-main">Inicio</a>
             <a href="#">Estoque</a>
             <a href="#">Cadastro</a>
             <a href="#">Preços</a>
         </div>
         <div class="direitos">
-            <p>@ 2025 "nome". Todos direitos reservados.</p>
+            <h1>@ 2025 "nome". Todos direitos reservados.</h1>
+            <h1>Logo do site por: <a href="https://www.flaticon.com/br/icones-gratis/farmacia" title="farmacia ícones" style="text-decoration: underline;">Icon Pond - Flaticon</a></h1>
         </div>
     </footer>
     <script src="src/javascript/colapse-menu.js"></script>
