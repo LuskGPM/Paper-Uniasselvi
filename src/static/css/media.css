@@ -15,7 +15,7 @@
 
     .colapse {
         overflow: visible;
-        grid-column-start: 2;
+        grid-column-start: 3;
         grid-column-end: -1;
         grid-auto-flow: column;
         max-height: 100px;
