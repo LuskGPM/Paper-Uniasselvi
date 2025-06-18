@@ -1,7 +1,9 @@
 :root {
     --principal: #a5d2f457;
-    --red: #D64550;
+    --red: #ec5460;
+    --red-hover: #cd0a0a;
     --green: #64E949;
+    --green-hover: #15b091;
     --myrtle-green: #307473;
     --gunmetal: #122932;
     --sandy-brown: #FFA552;
