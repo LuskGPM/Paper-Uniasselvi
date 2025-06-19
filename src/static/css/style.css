@@ -29,6 +29,10 @@ input {
     box-sizing: border-box;
 }
 
+body {
+    display: grid;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
 }

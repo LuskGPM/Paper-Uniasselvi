@@ -1,6 +1,6 @@
 @import url(paleta.css);
 
-main {
+.main {
     background-color: var(--principal);
 }
 

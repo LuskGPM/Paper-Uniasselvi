@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/media.css') }}">
     <!--
     <link rel="stylesheet" href="../static/css/form.css">
     <link rel="stylesheet" href="../static/css/style.css">
@@ -35,24 +36,40 @@
         color: black;
         font-weight: 700;
     }
+
+    h1 a {
+        color: var(--gunmetal);
+        text-decoration: none;
+        font-weight: 700;
+        transition: linear 0.2s;
+    }
+
+    h1 a:hover {
+        color: var(--sandy-brown);
+    }
 </style>
 
 <body>
     <header class="container">
-        <h1>Cadastro de fármacos</h1>
+        <h1>
+            <a href="{{ url_for('index') }}" class="fcorpo">
+                Cadastro de Fármacos
+            </a>
+        </h1>
         <span class="material-symbols-outlined" id="sanduiche">Menu</span>
         <nav class="colapse" id="colapse">
-            <a href="{{ url_for('index.index') }}" class="fcorpo">Voltar</a>
+            <a href="#" class="fcorpo">Estoque</a>
+            <a href="#" class="fcorpo">Preços</a>
         </nav>
     </header>
-    <main>
-        <form action="{{ url_for('cadastro.cadastro_produtos') }}" class="container form" method="post">
+    <main class="main-utopic">
+        <form action="{{ url_for('cadastro.cadastrar_produto') }}" class="container form" method="post">
             <label for="nome">Nome do Fármaco</label>
             <input type="text" name="nome" id="nome" required minlength="3" maxlength="100">
             <label for="desc">Descrição</label>
             <textarea name="desc" id="desc" maxlength="600"></textarea>
             <label for="preco">Preço (R$)</label>
-            <input type="number" name="preco" id="preco" required min="0" step="1.50">
+            <input type="number" name="preco" id="preco" required min="0" step="0.01">
             <label for="quantidade">Quantidade</label>
             <input type="number" name="quantidade" id="quantidade" min="1" required>
             <label for="fornecedor">Fornecedor</label>
@@ -62,6 +79,15 @@
             <input type="submit" value="Cadastrar">
             <input type="reset" value="Limpar">
         </form>
+     {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul style="list-style-type: none; padding: 0; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 10px; margin-bottom: 20px;">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     </main>
     <script src="{{ url_for('static', filename='js/colapse-menu.js') }}"></script>
     <!--

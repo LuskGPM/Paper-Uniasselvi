@@ -1,12 +1,12 @@
 @import url(paleta.css);
 
 @media screen and (min-width: 768px) {
-    header {
+    .header {
         height: 500px;
         justify-items: center;
     }
 
-    nav {
+    .nav {
         width: 100%;
         max-width: 700px;
         grid-template-columns: repeat(2, 1fr);
@@ -32,12 +32,12 @@
 }
 
 @media screen and (min-width: 1024px) {
-    header {
+    .header {
         height: 650px;
         background-image: url(../img/background-header-high.jpg);
     }
 
-    nav {
+    .nav {
         max-width: 900px;
     }
 
@@ -49,4 +49,9 @@
         font-size: 1.5em;
     }
 
+    .main-utopic,
+    .footer-utopic {
+        width: 70vw;
+        justify-self: center;
+    }
 }

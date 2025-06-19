@@ -1,4 +1,4 @@
-from app import app, database
+from .app import database
 from datetime import datetime, timezone
 
 class User(database.Model):
