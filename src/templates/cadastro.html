@@ -1,98 +1,44 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "base.html" %} {# Indica que este template herda de base.html #}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/media.css') }}">
-    <!--
-    <link rel="stylesheet" href="../static/css/form.css">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/header.css">
-    -->
-    <title>Cadastro de fármacos</title>
-</head>
-<style>
-    header {
-        padding: 15px;
-        display: grid;
-        grid-template-columns: auto 100px;
-        align-items: center;
-        justify-content: space-between;
-    }
+{% block title %}Cadastro de Fármacos{% endblock %} {# Define o título da página #}
 
-    main {
-        padding: 15px;
-    }
+{% block styles %} {# Bloco para CSS específico desta página, se houver #}
+{% endblock %}
 
-    .fcorpo {
-        color: black;
-        font-weight: 700;
-    }
+{% block a %} 
+<a href="{{ url_for('produtos.listar_produtos') }}" class="fcorpo">Gereciamento</a>
+{% endblock %}
 
-    h1 a {
-        color: var(--gunmetal);
-        text-decoration: none;
-        font-weight: 700;
-        transition: linear 0.2s;
-    }
+{% block content %} {# Aqui começa o conteúdo específico desta página #}
+<main class="main-utopic">
 
-    h1 a:hover {
-        color: var(--sandy-brown);
-    }
-</style>
+    <form action="{{ url_for('cadastro.cadastrar_produto') }}" class="container form" method="post">
 
-<body>
-    <header class="container">
-        <h1>
-            <a href="{{ url_for('index') }}" class="fcorpo">
-                Cadastro de Fármacos
-            </a>
-        </h1>
-        <span class="material-symbols-outlined" id="sanduiche">Menu</span>
-        <nav class="colapse" id="colapse">
-            <a href="#" class="fcorpo">Estoque</a>
-            <a href="#" class="fcorpo">Preços</a>
-        </nav>
-    </header>
-    <main class="main-utopic">
-        <form action="{{ url_for('cadastro.cadastrar_produto') }}" class="container form" method="post">
-            <label for="nome">Nome do Fármaco</label>
-            <input type="text" name="nome" id="nome" required minlength="3" maxlength="100">
-            <label for="desc">Descrição</label>
-            <textarea name="desc" id="desc" maxlength="600"></textarea>
-            <label for="preco">Preço (R$)</label>
-            <input type="number" name="preco" id="preco" required min="0" step="0.01">
-            <label for="quantidade">Quantidade</label>
-            <input type="number" name="quantidade" id="quantidade" min="1" required>
-            <label for="fornecedor">Fornecedor</label>
-            <input type="text" name="fornecedor" id="fornecedor" required>
-            <label for="data-validade">Data de validade</label>
-            <input type="month" name="data-validade" id="data-validade" required>
-            <input type="submit" value="Cadastrar">
-            <input type="reset" value="Limpar">
-        </form>
-     {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul style="list-style-type: none; padding: 0; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 10px; margin-bottom: 20px;">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    </main>
-    <script src="{{ url_for('static', filename='js/colapse-menu.js') }}"></script>
-    <!--
-    <script src="../static/js/colapse-menu.js"></script>
-    -->
-</body>
+        <label for="nome">Nome do Fármaco</label>
+        <input type="text" name="nome" id="nome" required minlength="3" maxlength="100">
 
-</html>
+        <label for="desc">Descrição</label>
+        <textarea name="desc" id="desc" maxlength="600"></textarea>
+
+        <label for="preco_compra">Preço de Compra (R$)</label>
+        <input type="number" name="preco_compra" id="preco_compra" required min="0" step="0.01">
+
+        <label for="quantidade">Quantidade</label>
+        <input type="number" name="quantidade" id="quantidade" min="1" required>
+
+        <label for="fornecedor">Fornecedor</label>
+        <input type="text" name="fornecedor" id="fornecedor" required>
+
+        <label for="data-validade">Data de validade</label>
+        <input type="month" name="data-validade" id="data-validade" required>
+
+        <input type="submit" value="Cadastrar">
+        <input type="reset" value="Limpar">
+
+    </form>
+</main>
+{% endblock %} {# Finaliza o bloco de conteúdo #}
+
+{% block scripts %} {# Bloco para JavaScripts específicos desta página #}
+<script src="{{ url_for('static', filename='js/colapse-menu.js') }}"></script>
+{% endblock %}

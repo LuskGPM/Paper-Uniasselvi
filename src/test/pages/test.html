@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar e Editar Produtos</title>
+    <style>
+        main {
+            overflow-x: scroll;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="text"], input[type="number"], textarea {
+            width: 90%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        input:disabled {
+            background-color: #f9f9f9;
+            color: #555;
+        }
+        .action-buttons button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .save-button, .cancel-button {
+            display: none; /* Escondido por padrão, JavaScript vai mostrar */
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Todos os Produtos Cadastrados</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Página Inicial</a></li>
+                <li><a href="{{ url_for('cadastro.cadastrar_produto') }}">Cadastrar Novo Produto</a></li>
+                <li><a href="{{ url_for('produtos.listar_produtos') }}">Listar/Editar Produtos</a></li>
+                </ul>
+        </nav>
+    </header>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Fornecedor</th>
+                    <th>Data Compra</th>
+                    <th>Data Validade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                <tr data-product-id="{{ produto.id }}">
+                    <td>{{ produto.id }}</td>
+                    <td><input type="text" name="nome_produto" value="{{ produto.nome_produto }}" disabled></td>
+                    <td><textarea name="descricao" disabled>{{ produto.descricao }}</textarea></td>
+                    <td><input type="number" name="preco" value="{{ "%.2f"|format(produto.preco) }}" step="0.01" disabled></td>
+                    <td><input type="number" name="quantidade" value="{{ produto.quantidade }}" disabled></td>
+                    <td><input type="text" name="fornecedor" value="{{ produto.fornecedor }}" disabled></td>
+                    <td>{{ produto.data_compra.strftime('%Y-%m-%d') if produto.data_compra else '' }}</td>
+                    <td><input type="date" name="data_validade" value="{{ produto.data_validade.strftime('%Y-%m-%d') if produto.data_validade else '' }}" disabled></td>
+                    <td class="action-buttons">
+                        <button class="edit-button">Editar</button>
+                        <button class="save-button">Salvar</button>
+                        <button class="cancel-button">Cancelar</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Gestão da Farmácia. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/produtos_script.js') }}"></script>
+</body>
+</html>

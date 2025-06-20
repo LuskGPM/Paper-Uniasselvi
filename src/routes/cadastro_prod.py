@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, get_flashed_messages
+from flask import Blueprint, render_template, request, flash, get_flashed_messages, url_for
 from ..app import database
 from ..models import produtos
 from datetime import datetime, timezone
@@ -17,7 +17,7 @@ def cadastrar_produto():
     if request.method == 'POST':
         nome_prod = request.form['nome']
         descricao_prod = request.form.get('desc', '')
-        preco_prod = float(request.form['preco'])
+        preco_prod_compra = float(request.form['preco_compra'])
         quantidade_prod = int(request.form['quantidade'])     
         fornecedor_prod = request.form['fornecedor']
         data_validade_str = request.form.get('data-validade') + '-01'
@@ -32,7 +32,7 @@ def cadastrar_produto():
             novo_produto = produtos(
                 nome_produto = nome_prod,
                 descricao = descricao_prod,
-                preco = preco_prod,
+                preco_compra = preco_prod_compra,
                 quantidade = quantidade_prod,
                 fornecedor = fornecedor_prod,
                 data_validade = data_validade_prod

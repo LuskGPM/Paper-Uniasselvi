@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto - {{ produto.nome_produto }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        textarea {
+            width: calc(100% - 22px); /* Ajusta a largura considerando padding e borda */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Garante que padding e borda sejam incluídos na largura */
+        }
+        input:disabled, textarea:disabled {
+            background-color: #e9e9e9;
+            color: #777;
+        }
+        .button-group {
+            text-align: right;
+            margin-top: 20px;
+        }
+        .button-group button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .edit-button {
+            background-color: #007bff;
+            color: white;
+        }
+        .save-button {
+            background-color: #28a745;
+            color: white;
+            display: none; /* Escondido por padrão, JavaScript vai mostrar */
+        }
+        .cancel-button {
+            background-color: #dc3545;
+            color: white;
+            display: none; /* Escondido por padrão, JavaScript vai mostrar */
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        nav ul li {
+            margin: 0;
+        }
+        nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: #575757;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Página Inicial</a></li>
+                <li><a href="{{ url_for('cadastro.cadastrar_produto') }}">Cadastrar Novo Produto</a></li>
+                <li><a href="{{ url_for('produtos.listar_produtos') }}">Listar/Editar Produtos</a></li>
+                </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Detalhes do Produto: {{ produto.nome_produto }}</h1>
+
+        <form id="product-details-form">
+            <input type="hidden" name="id" value="{{ produto.id }}">
+
+            <div class="form-group">
+                <label for="nome_produto">Nome do Produto:</label>
+                <input type="text" id="nome_produto" name="nome_produto" value="{{ produto.nome_produto }}" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" name="descricao" rows="3" disabled>{{ produto.descricao }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="preco">Preço (R$):</label>
+                <input type="number" id="preco" name="preco" value="{{ "%.2f"|format(produto.preco) }}" step="0.01" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" id="quantidade" name="quantidade" value="{{ produto.quantidade }}" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="fornecedor">Fornecedor:</label>
+                <input type="text" id="fornecedor" name="fornecedor" value="{{ produto.fornecedor }}" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="data_compra">Data de Compra:</label>
+                <input type="date" id="data_compra" name="data_compra" value="{{ produto.data_compra.strftime('%Y-%m-%d') if produto.data_compra else '' }}" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="data_validade">Data de Validade:</label>
+                <input type="date" id="data_validade" name="data_validade" value="{{ produto.data_validade.strftime('%Y-%m-%d') if produto.data_validade else '' }}" disabled>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="edit-button">Editar</button>
+                <button type="submit" class="save-button">Salvar</button>
+                <button type="button" class="cancel-button">Cancelar</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Gestão da Farmácia. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/produtos_detalhes_script.js') }}"></script>
+</body>
+</html>

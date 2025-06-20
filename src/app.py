@@ -17,6 +17,9 @@ def create_app():
         from .routes.cadastro_prod import cadastro_bp
         app.register_blueprint(cadastro_bp)
         
+        from .routes.produtos import produtos_bp
+        app.register_blueprint(produtos_bp)
+        
     @app.route('/')
     def index():
         return render_template('index.html')

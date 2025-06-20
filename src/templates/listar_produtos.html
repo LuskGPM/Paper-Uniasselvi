@@ -1,0 +1,41 @@
+{% extends "base.html" %} {# Indica que este template herda de base.html #}
+
+{% block title %}Gerenciamento de Produtos{% endblock %} {# Define o título da página #}
+
+{% block styles %}
+{% endblock %}
+
+{% block a %}
+<a href="{{ url_for('cadastro.cadastrar_produto') }}" class="fcorpo">Cadastro</a>
+{% endblock %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody> {# O
+    <tbody> agora está no lugar correto, após o <thead> #}
+            {% for produto in produtos %}
+            <tr>
+                <td>{{ produto.id }}</td>
+                <td>{{ produto.nome_produto }}</td>
+                <td>{{ produto.descricao }}</td>
+                <td class="botao-tabela">
+                    <a href="{{ url_for('produtos.detalhes_produto', produto_id = produto.id) }}">
+                        <input type="button" value="Visualizar">
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+    </tbody>
+</table>
+{% if not produtos %}
+<p class="alert-red">Nenhum Produto encontrado</p>
+{% endif %}
+{% endblock %} {# Finaliza o bloco de conteúdo #}

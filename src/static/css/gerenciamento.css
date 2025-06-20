@@ -1,0 +1,57 @@
+header {
+        padding: 15px;
+        display: grid;
+        grid-template-columns: auto 100px;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    main {
+        padding: 15px;
+        min-height: 100vh;
+    }
+
+    .fcorpo {
+        color: black;
+        font-weight: 700;
+    }
+
+    h1 a {
+        color: var(--gunmetal);
+        text-decoration: none;
+        font-weight: 700;
+        transition: linear 0.2s;
+    }
+
+    h1 a:hover {
+        color: var(--sandy-brown);
+    }
+
+    .alert-red {
+        width: 100%;
+        background-color: rgba(255, 0, 0, 0.174);
+        padding: 15px 5px;
+        color: rgb(154, 6, 6);
+    }
+
+    .alert-green {
+        color: #155724;
+        background-color: #d4edda;
+        width: 100%;
+        padding: 15px 5px;
+    }
+
+    .group-buttons {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .group-buttons input {
+        padding: 15px 0;
+        font-size: 1.5em;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+    }
