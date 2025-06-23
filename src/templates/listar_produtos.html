@@ -5,20 +5,31 @@
 {% block style %}
 
 <style>
-
     .btn {
         padding: 8px 5px;
         border-radius: 5px;
         color: white;
+        cursor: pointer;
     }
 
-    #editar-prod {
+    .editar-prod {
         background-color: #28a745;
     }
+
     .botao-tabela {
         display: flex;
         flex-direction: row;
         justify-content: center;
+        gap: 10px;
+    }
+
+    .delete {
+        background-color: red;
+    }
+
+    button {
+        border: none;
+        background: transparent;
     }
 </style>
 
@@ -56,10 +67,14 @@
                 <td>{{ produto.descricao }}</td>
                 <td class="botao-tabela">
                     <a href="{{ url_for('produtos.detalhes_produto', produto_id = produto.id) }}">
-                        <span class="material-symbols-outlined btn" id="editar-prod">
+                        <span class="material-symbols-outlined btn editar-prod">
                             edit
                         </span>
-                        <a href="{{ url_for('produtos.') }}"></a>
+                    </a>
+                    <button type="button"
+                        onclick="confirmDelete('{{ produto.id }}', '{{ produto.nome_produto }}')">
+                        <span class="material-symbols-outlined btn delete">delete_forever</span>
+                    </button>
                     </a>
                 </td>
             </tr>
@@ -69,4 +84,18 @@
 {% if not produtos %}
 <p class="alert-red">Nenhum Produto encontrado</p>
 {% endif %}
-{% endblock %} {# Finaliza o bloco de conteúdo #}
+{% endblock %}
+{% block scripts %}
+<script>
+    function confirmDelete(productId, productName) {
+        if (confirm(`Tem certeza que deseja deletar o produto "${productName}" (ID: ${productId})? Esta ação é irreversível!`)) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `{{ url_for('produtos.deletar_produto', produto_id='0') }}`.replace('0', productId);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+</script>
+{% endblock %}

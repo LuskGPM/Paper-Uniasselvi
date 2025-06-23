@@ -60,5 +60,22 @@ def update_produto(produto_id):
         flash(f'Erro ao cadastrar produto: {e}', 'red')
         return redirect(url_for('produtos.detalhes_produto', produto_id=produto.id))
  
- @produtos_bp.route('/produtos/delete/<int:produto_id>')
- def 
+@produtos_bp.route('/produtos/deletar/<int:produto_id>', methods=['POST'])
+def deletar_produto(produto_id):
+    produto = database.session.get(produtos, produto_id)
+
+    if not produto:
+        flash('Produto não encontrado.', 'error')
+        return redirect(url_for('produtos.listar_produtos'))
+
+    try:
+        database.session.delete(produto)
+        database.session.commit() 
+
+        flash(f'Produto "{produto.nome_produto}" deletado com sucesso!', 'green')
+        return redirect(url_for('produtos.listar_produtos'))
+
+    except Exception as e:
+        database.session.rollback()
+        flash(f'Erro ao deletar produto: {e}', 'red')
+        return redirect(url_for('produtos.listar_produtos'))
