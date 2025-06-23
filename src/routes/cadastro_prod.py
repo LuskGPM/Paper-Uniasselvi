@@ -26,7 +26,7 @@ def cadastrar_produto():
             try:
                 data_validade_prod = datetime.strptime(data_validade_str, '%Y-%m-%d').replace(tzinfo=timezone.utc)
             except ValueError as e:
-                flash('Erro, data inválida')
+                flash('Erro, data inválida', 'red')
                 return render_template('cadastro.html')
             
             novo_produto = produtos(
@@ -41,11 +41,11 @@ def cadastrar_produto():
         try: 
             database.session.add(novo_produto)
             database.session.commit()
-            flash('Cadastrado com sucesso')
+            flash('Cadastrado com sucesso', 'green')
             return render_template('cadastro.html')
         except Exception as e:
             database.session.rollback()
-            flash(f'Erro ao cadastrar produto: {e}')
+            flash(f'Erro ao cadastrar produto: {e}', 'red')
             return f'Erro no banco: {e}'
     
     return render_template('cadastro.html')

@@ -2,7 +2,26 @@
 
 {% block title %}Gerenciamento de Produtos{% endblock %} {# Define o título da página #}
 
-{% block styles %}
+{% block style %}
+
+<style>
+
+    .btn {
+        padding: 8px 5px;
+        border-radius: 5px;
+        color: white;
+    }
+
+    #editar-prod {
+        background-color: #28a745;
+    }
+    .botao-tabela {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+</style>
+
 {% endblock %}
 
 {% block a %}
@@ -10,6 +29,15 @@
 {% endblock %}
 
 {% block content %}
+<div class="container">
+    <div class="search-bar">
+        <form action="{{ url_for('produtos.listar_produtos') }}" method="GET">
+            <input type="text" name="q" placeholder="Buscar por nome..." value="{{ request.args.get('q', '') }}">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+</div>
+
 <table>
     <thead>
         <tr>
@@ -28,7 +56,10 @@
                 <td>{{ produto.descricao }}</td>
                 <td class="botao-tabela">
                     <a href="{{ url_for('produtos.detalhes_produto', produto_id = produto.id) }}">
-                        <input type="button" value="Visualizar">
+                        <span class="material-symbols-outlined btn" id="editar-prod">
+                            edit
+                        </span>
+                        <a href="{{ url_for('produtos.') }}"></a>
                     </a>
                 </td>
             </tr>

@@ -1,30 +1,27 @@
-var btnE = document.querySelector('#edit')
-var btnS = document.querySelector('.save')
+const btnEdit = document.querySelector('#edit')
+const btnSalvar = document.querySelector('#save')
+const btnReset = document.querySelector('#reset')
 const inputs = document.querySelectorAll('input')
-const textArea = document.querySelector('textarea')
+const txtarea = document.querySelector('textarea')
 
-btnE.onclick = () => {
-    if (btnE.classList.contains('blue')) {
-        btnE.classList.remove('blue')
-        btnE.classList.add('red')
-    } else {
-        btnE.classList.remove('red')
-        btnE.classList.add('blue')
-    }
-    if (btnS.disabled) {
-        btnS.disabled = false
-    } else {
-        btnS.disabled = true
-    }
-    if (inputs[0].disabled) {
-        for (i=0; i<inputs.length; i++) {
-        inputs[i].disabled = false
+btnEdit.onclick = () => {
+    if (btnEdit.value === 'Editar') {
+        btnEdit.value = 'Cancelar'
+        for (i = 1; i<inputs.length; i++) {
+            inputs[i].disabled = false
         }
-        textArea.disabled = false
+        txtarea.disabled = false
+        
     } else {
-        for (i=0; i<inputs.length; i++) {
-        inputs[i].disabled = true
+        btnEdit.value = 'Editar'
+        btnSalvar.disabled = true
+        for (i = 1; i<inputs.length; i++) {
+            inputs[i].disabled = true
         }
-        textArea.disabled = true
+        txtarea.disabled = true
+        btnEdit.disabled = false
     }
+    btnSalvar.classList.toggle('ativo')
+    btnReset.classList.toggle('ativo')
+    btnSalvar.disabled = false
 }
