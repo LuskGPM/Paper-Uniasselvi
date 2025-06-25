@@ -19,6 +19,17 @@
         color: white;
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.603);
     }
+    .fcorpo .perfil {
+        font-size: 2em;
+        transition: all .1s ease-out;
+    }
+    .fcorpo .perfil:hover {
+        transform: scale(1.2);
+        background-color: transparent;
+    }
+    #a-perfil:hover {
+        background-color: transparent;
+    }
 </style>
 <body>
     <header class="header">
@@ -30,7 +41,14 @@
             <div class="colapse" id="colapse">
                 <a href="{{ url_for('produtos.listar_produtos') }}" class="fcorpo">Fármacos</a>
                 <a href="{{ url_for('cadastro.cadastrar_produto') }}" class="fcorpo">Cadastro</a>
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('user.perfil') }}" class="fcorpo" id="a-perfil"><span class="material-symbols-outlined perfil">
+                        account_circle
+                    </span></a>
+                {% endif %}
+                {% if not current_user.is_authenticated %}
                 <a href="{{ url_for('auth.login') }}" class="fcorpo">Login</a>
+                {% endif %}
             </div>
         </nav>
         <section class="info-header">

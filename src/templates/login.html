@@ -6,12 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login/style-login.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login/media-login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gerenciamento.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/x-icon">
     <title>Login</title>
 </head>
 
 <body>
     <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div>
+            <p class="alert {{category}}">{{ message }}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
         <section id="formulario">
             <h1>Login</h1>
             <p>Seja bem-vindo! Faça seu login no formulário abaixo.</p>

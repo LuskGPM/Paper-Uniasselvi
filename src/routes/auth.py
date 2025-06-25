@@ -9,6 +9,7 @@ auth_bp = Blueprint(
     template_folder='../templates'
 )
 
+
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -33,7 +34,7 @@ def login():
             login_user(user)
             flash('Login realizado com sucesso!', 'green')
             next_page = request.args.get('next')
-            return redirect(next_page or url_for('produtos.listar_produtos'))
+            return redirect(next_page or url_for('index'))
         else:
             flash('CPF/E-mail ou senha inválidos.', 'red')
     
