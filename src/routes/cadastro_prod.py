@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, flash, get_flashed_messages, url_for
+from flask import Blueprint, redirect, render_template, request, flash, get_flashed_messages, url_for
+from flask_login import current_user, login_required
 from ..app import database
 from ..models import produtos
 from datetime import datetime, timezone
@@ -12,43 +13,48 @@ cadastro_bp = Blueprint(
 @cadastro_bp.route('/cadastro', methods=['GET', 'POST'])
 def cadastrar_produto():
     
-    data_validade_prod = None
+    if current_user.is_authenticated:
     
-    if request.method == 'POST':
-        nome_prod = request.form['nome']
-        descricao_prod = request.form.get('desc', '')
-        preco_prod_compra = float(request.form['preco_compra'])
-        quantidade_prod = int(request.form['quantidade'])     
-        fornecedor_prod = request.form['fornecedor']
-        data_validade_str = request.form.get('data-validade') + '-01'
+        data_validade_prod = None
         
-        if data_validade_str:
-            try:
-                data_validade_prod = datetime.strptime(data_validade_str, '%Y-%m-%d').replace(tzinfo=timezone.utc)
-            except ValueError as e:
-                flash('Erro, data inválida', 'red')
-                return render_template('cadastro.html')
+        if request.method == 'POST':
+            nome_prod = request.form['nome']
+            descricao_prod = request.form.get('desc', '')
+            preco_prod_compra = float(request.form['preco_compra'])
+            quantidade_prod = int(request.form['quantidade'])     
+            fornecedor_prod = request.form['fornecedor']
+            data_validade_str = request.form.get('data-validade') + '-01'
             
-            novo_produto = produtos(
-                nome_produto = nome_prod,
-                descricao = descricao_prod,
-                preco_compra = preco_prod_compra,
-                quantidade = quantidade_prod,
-                fornecedor = fornecedor_prod,
-                data_validade = data_validade_prod
-            )
+            if data_validade_str:
+                try:
+                    data_validade_prod = datetime.strptime(data_validade_str, '%Y-%m-%d').replace(tzinfo=timezone.utc)
+                except ValueError as e:
+                    flash('Erro, data inválida', 'red')
+                    return render_template('cadastro.html')
+                
+                novo_produto = produtos(
+                    nome_produto = nome_prod,
+                    descricao = descricao_prod,
+                    preco_compra = preco_prod_compra,
+                    quantidade = quantidade_prod,
+                    fornecedor = fornecedor_prod,
+                    data_validade = data_validade_prod
+                )
+            
+            try: 
+                database.session.add(novo_produto)
+                database.session.commit()
+                flash('Cadastrado com sucesso', 'green')
+                return render_template('cadastro.html')
+            except Exception as e:
+                database.session.rollback()
+                flash(f'Erro ao cadastrar produto: {e}', 'red')
+                return f'Erro no banco: {e}'
         
-        try: 
-            database.session.add(novo_produto)
-            database.session.commit()
-            flash('Cadastrado com sucesso', 'green')
-            return render_template('cadastro.html')
-        except Exception as e:
-            database.session.rollback()
-            flash(f'Erro ao cadastrar produto: {e}', 'red')
-            return f'Erro no banco: {e}'
+        return render_template('cadastro.html')
     
-    return render_template('cadastro.html')
+    else:
+        return redirect(url_for('auth.login'))
 
 
         

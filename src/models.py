@@ -1,7 +1,8 @@
 from .app import database
 from datetime import datetime, timezone
+from flask_login import UserMixin
 
-class User(database.Model):
+class User(database.Model, UserMixin):
     
     cpf = database.Column(database.String(11), primary_key=True)
     
@@ -19,6 +20,9 @@ class User(database.Model):
     
     def __repr__(self):
         return '<User %r>' % self.nome
+    
+    def get_id(self):
+        return str(self.cpf)
     
 class produtos(database.Model):
     

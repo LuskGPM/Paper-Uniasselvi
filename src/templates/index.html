@@ -28,9 +28,9 @@
                 menu
             </span>
             <div class="colapse" id="colapse">
-                <a href="{{ url_for('produtos.listar_produtos') }}" class="fcorpo">Gerenciamento</a>
+                <a href="{{ url_for('produtos.listar_produtos') }}" class="fcorpo">Fármacos</a>
                 <a href="{{ url_for('cadastro.cadastrar_produto') }}" class="fcorpo">Cadastro</a>
-                <a href="#" class="fcorpo">Preços</a>
+                <a href="{{ url_for('auth.login') }}" class="fcorpo">Login</a>
             </div>
         </nav>
         <section class="info-header">

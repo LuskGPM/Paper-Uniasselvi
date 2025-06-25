@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login/style-login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login/media-login.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/x-icon">
+    <title>Login</title>
+</head>
+
+<body>
+    <main>
+        <section id="formulario">
+            <h1>Login</h1>
+            <p>Seja bem-vindo! Faça seu login no formulário abaixo.</p>
+            <form method="post">
+                <div id="input-login-senha">
+                    <label for="login">
+                        <span id="icon-user"></span>
+                    </label>
+                    <input type="text" name="login" id="login" required minlength="5" placeholder="cpf ou email">
+                    <label for="senha">
+                        <span id="icon-password"></span>
+                    </label>
+                    <input type="password" name="senha" id="senha" required minlength="8" placeholder="senha">
+                </div>
+                <div class="botoes">
+                    <input type="submit">
+                    <input type="button" value="Esqueci minha senha">
+                </div>
+            </form>
+        </section>
+        <section id="img">
+        </section>
+    </main>
+</body>
+
+</html>
