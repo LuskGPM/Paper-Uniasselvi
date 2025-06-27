@@ -6,22 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login/style-login.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login/media-login.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gerenciamento.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/x-icon">
     <title>Login</title>
 </head>
+<style>
+    .alert.red {
+        background-color: rgba(255, 0, 0, 0.174);
+        color: rgb(154, 6, 6);
+    }
+
+    .alert.green {
+        color: #155724;
+        background-color: #b1fcc3;
+    }
+
+    .alert.yellow {
+        color: #856404;
+        background-color: #fff3cd;
+    }
+
+    .alert {
+        padding: 15px 5px;
+        font-size: 1.2em;
+        text-align: center;
+        border-radius: 10px;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+    }
+</style>
 
 <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div>
+        <p class="alert {{category}}">{{ message }}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <main>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        {% for category, message in messages %}
-        <div>
-            <p class="alert {{category}}">{{ message }}</p>
-        </div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
         <section id="formulario">
             <h1>Login</h1>
             <p>Seja bem-vindo! Faça seu login no formulário abaixo.</p>

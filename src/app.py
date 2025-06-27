@@ -21,7 +21,7 @@ def create_app():
 
     with app.app_context():
         
-        from .models import User, produtos
+        from .models import User, Produtos
         database.create_all()
         
         @login_manager.user_loader

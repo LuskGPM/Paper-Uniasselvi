@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, flash, get_flashed_messages, url_for
 from flask_login import current_user, login_required
 from ..app import database
-from ..models import produtos
+from ..models import Produtos
 from datetime import datetime, timezone
 
 cadastro_bp = Blueprint(
@@ -32,7 +32,7 @@ def cadastrar_produto():
                     flash('Erro, data inválida', 'red')
                     return render_template('cadastro.html')
                 
-                novo_produto = produtos(
+                novo_produto = Produtos(
                     nome_produto = nome_prod,
                     descricao = descricao_prod,
                     preco_compra = preco_prod_compra,

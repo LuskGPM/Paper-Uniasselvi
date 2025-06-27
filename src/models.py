@@ -24,7 +24,7 @@ class User(database.Model, UserMixin):
     def get_id(self):
         return str(self.cpf)
     
-class produtos(database.Model):
+class Produtos(database.Model):
     
     dataHoje = datetime.now(timezone.utc)
     

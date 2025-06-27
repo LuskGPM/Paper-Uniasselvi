@@ -9,10 +9,18 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gerenciamento.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/media.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
     <title>{% block title %} Perfil {% endblock %}</title>
 </head>
 <style>
     @import url(../static/css/paleta.css);
+
     .fcorpo .perfil {
         font-size: 2em;
         transition: all .1s ease-out;
@@ -22,14 +30,24 @@
         transform: scale(1.2);
     }
 
-    .display-form-senha {
-        display: none;
-    }
     .active-btn-senha {
         background-color: var(--sandy-brown);
     }
+
     .active-btn-senha:hover {
         background-color: rgb(255, 126, 34);
+    }
+
+    #alter-senha[value='Alterar Senha'] {
+        background-color: rgb(159, 159, 159);
+    }
+
+    #alter-senha[value='Cancelar'] {
+        background-color: rgb(255, 113, 113);
+    }
+
+    #a-perfil:hover {
+        background-color: transparent;
     }
 </style>
 {% block style %} {% endblock %}
@@ -38,14 +56,15 @@
     <header class="container">
         <h1>
             <a href="{{ url_for('index') }}" class="fcorpo">
-                Cadastro de Fármacos
+                {% block perfil %} {% endblock %}
             </a>
         </h1>
         <span class="material-symbols-outlined" id="sanduiche">Menu</span>
         <nav class="colapse" id="colapse">
             {% block a %} {% endblock %}
             <a href="#" class="fcorpo">Estoque</a>
-            <a href="{{ url_for('user.perfil') }}" class="fcorpo"><span class="material-symbols-outlined perfil">
+            <a href="{{ url_for('user.perfil') }}" class="fcorpo" id="a-perfil"><span
+                    class="material-symbols-outlined perfil">
                     account_circle
                 </span></a>
         </nav>
@@ -67,7 +86,7 @@
             <a href="">Home</a>
             <a href="">Cadastro</a>
             <a href="">Fármacos</a>
-            <a href="">Sair</a>
+            <a href="{{ url_for('auth.logout') }}">Sair</a>
         </section>
         <section id="corpo-perfil">
             <div class="container form">
@@ -77,20 +96,22 @@
                 <input type="email" name="email" id="email" disabled value="{{ user.email }}">
                 <label for="nome">Nome</label>
                 <input type="text" name="nome" id="nome" disabled value="{{ user.nome }}">
-                <input type="button" value="Mudar senha" onclick="aparecer_formulario_de_senha()" id="alter-senha">
+                <input type="button" value="Alterar Senha" id="alter-senha">
             </div>
 
-            <form action="{{ url_for('user.analisar_senha') }}" method="post" class="container form display-form-senha" id="form_senha">
-                <input type="text" placeholder="senha atual" required minlength="8" name="senha_atual" id="senha atual">
+            <form action="{{ url_for('user.analisar_senha') }}" method="post" class="container form"
+                style="display: none;" id="form-senha">
+                <input type="text" placeholder="senha atual" required minlength="8" name="senha_atual" id="senha-atual"
+                    class="display-form-senha">
                 <input type="submit">
             </form>
 
-            {% if prosseguir %}
+            {% if prosseguir == 'true' %}
             <form action="{{ url_for('user.atualizar_senha') }}" class="container form">
                 <input type="text" placeholder="nova senha" required minlength="8" name="senha_nova" id="senha_nova">
                 <input type="text" placeholder="confirme a nova senha" required minlength="8" id="repetir_senha">
             </form>
-            {% endif %}X
+            {% endif %}
         </section>
     </main>
 

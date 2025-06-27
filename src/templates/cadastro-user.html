@@ -1,0 +1,52 @@
+{% extends "base.html" %} {# Indica que este template herda de base.html #}
+
+{% block title %}Cadastro de Fármacos{% endblock %} {# Define o título da página #}
+
+{% block styles %} {# Bloco para CSS específico desta página, se houver #}
+{% endblock %}
+
+{% block a %} 
+<a href="{{ url_for('produtos.listar_produtos') }}" class="fcorpo">Gereciamento</a>
+{% endblock %}
+
+{% block content %} {# Aqui começa o conteúdo específico desta página #}
+<main class="main-utopic">
+
+    <form action="{{ url_for('user.cadastrar_user') }}" class="container form" method="post">
+
+        <label for="nome">Nome do Usuario</label>
+        <input type="text" name="nome" id="nome" required minlength="3" maxlength="100">
+
+        <label for="cpf">CPF</label>
+        <input type="text" name="cpf" id="cpf" required>
+
+        <label for="email">Emaik</label>
+        <input type="email" name="email" id="email" required minlength="5">
+
+        <label for="senha">senha</label>
+        <input type="password" name="senha" id="senha" required minlength="8">
+
+        <fieldset class="fieldset">
+            <legend class="legend">
+                <p>Is_adm</p>
+            </legend>
+            <div class="campo-fieldset">
+                <input type="radio" name="is_adm" id="sim" value="true">
+                <label for="sim">Administrador</label>
+            </div>
+            <div class="campo-fieldset">
+                <input type="radio" name="is_adm" id="nao" value="false">
+                <label for="nao">Junior</label>
+            </div>
+        </fieldset>
+
+        <input type="submit" value="Cadastrar">
+        <input type="reset" value="Limpar">
+
+    </form>
+</main>
+{% endblock %} {# Finaliza o bloco de conteúdo #}
+
+{% block scripts %} {# Bloco para JavaScripts específicos desta página #}
+<script src="{{ url_for('static', filename='js/colapse-menu.js') }}"></script>
+{% endblock %}

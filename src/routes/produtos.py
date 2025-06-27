@@ -1,6 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, flash, get_flashed_messages, url_for
+from flask_login import login_required
 from ..app import database
-from ..models import produtos
+from ..models import Produtos
 from datetime import datetime, timezone
 
 produtos_bp = Blueprint(
@@ -10,25 +11,26 @@ produtos_bp = Blueprint(
 )
 
 @produtos_bp.route('/produtos')
+@login_required
 def listar_produtos():
     search_query = request.args.get('q','').strip()
     
     if search_query:
-        todos_produtos = produtos.query.filter(produtos.nome_produto.ilike(f'%{search_query}%'))
+        todos_produtos = Produtos.query.filter(Produtos.nome_produto.ilike(f'%{search_query}%'))
     else:
-        todos_produtos = produtos.query
+        todos_produtos = Produtos.query
     
-    todos_produtos = todos_produtos.order_by(produtos.nome_produto).all()
+    todos_produtos = todos_produtos.order_by(Produtos.nome_produto).all()
     return render_template('listar_produtos.html', produtos=todos_produtos)
 
 @produtos_bp.route('/produtos/list/<int:produto_id>')
 def detalhes_produto(produto_id):
-    produto = produtos.query.get_or_404(produto_id)
+    produto = Produtos.query.get_or_404(produto_id)
     return render_template('detalhes_produtos.html', produto = produto)
 
 @produtos_bp.route('/produtos/update/<int:produto_id>', methods=['POST'])
 def update_produto(produto_id):
-    produto = produtos.query.get_or_404(produto_id)
+    produto = Produtos.query.get_or_404(produto_id)
     
     try:
         produto.nome_produto = request.form['nome']
@@ -62,7 +64,7 @@ def update_produto(produto_id):
  
 @produtos_bp.route('/produtos/deletar/<int:produto_id>', methods=['POST'])
 def deletar_produto(produto_id):
-    produto = database.session.get(produtos, produto_id)
+    produto = database.session.get(Produtos, produto_id) 
 
     if not produto:
         flash('Produto não encontrado.', 'error')
@@ -77,5 +79,5 @@ def deletar_produto(produto_id):
 
     except Exception as e:
         database.session.rollback()
-        flash(f'Erro ao deletar produto: {e}', 'red')
-        return redirect(url_for('produtos.listar_produtos'))
+        flash(f'Erro interno ao deletar produto: {e}', 'red') 
+        return redirect(url_for('produtos.listar_produtos'))  

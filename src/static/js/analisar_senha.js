@@ -1,6 +1,13 @@
-const form_senha = document.getElementById('form_senha');
-const btn = document.getElementById('alter-senha');
-function aparecer_formulario_de_senha() {
-    form_senha.classList.toggle('display-form-senha');
-    btn.classList.toggle('active-btn-senha')
+const form_senha = document.getElementById('form-senha')
+const alter_senha = document.getElementById('alter-senha')
+
+alter_senha.onclick = () => {
+    if (form_senha.style.display == 'none'){
+        form_senha.style.display = 'grid'
+        alter_senha.value = 'Cancelar'
+    }
+    else {
+        form_senha.style.display = 'none'
+        alter_senha.value = 'Alterar Senha'
+    }
 }

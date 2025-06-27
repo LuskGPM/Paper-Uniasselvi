@@ -1,1 +1,7 @@
 {% extends 'base-perfil.html' %}
+{% block perfil %}
+Perfil Administrador
+{% endblock %}
+{% block a %}
+<a href="{{ url_for('user.cadastrar_user') }}" class="fcorpo">Cadastrar Usuário</a>
+{% endblock %}

@@ -22,8 +22,13 @@
         font-size: 2em;
         transition: all .1s ease-out;
     }
+
     .fcorpo .perfil:hover {
         transform: scale(1.2);
+    }
+
+    #a-perfil:hover {
+        background-color: transparent;
     }
 </style>
 {% block style %} {% endblock %}
@@ -39,7 +44,8 @@
         <nav class="colapse" id="colapse">
             {% block a %} {% endblock %}
             <a href="#" class="fcorpo">Estoque</a>
-            <a href="{{ url_for('user.perfil') }}" class="fcorpo"><span class="material-symbols-outlined perfil">
+            <a href="{{ url_for('user.perfil') }}" class="fcorpo" id="a-perfil"><span
+                    class="material-symbols-outlined perfil">
                     account_circle
                 </span></a>
         </nav>

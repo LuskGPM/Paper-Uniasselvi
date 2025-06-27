@@ -58,7 +58,7 @@
     font-size: 1.2em;
     padding: 10px;
     width: 100%;
-    text-align: center;
+    text-align: end;
     transition: linear 0.4s;
     border-radius: 5px;
 }
