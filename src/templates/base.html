@@ -43,6 +43,8 @@
         <span class="material-symbols-outlined" id="sanduiche">Menu</span>
         <nav class="colapse" id="colapse">
             {% block a %} {% endblock %}
+            <a href="{{ url_for('produtos.listar_produtos') }}" class="fcorpo">Fármacos</a>
+            <a href="{{ url_for('cadastro.cadastrar_produto') }}" class="fcorpo">Cadastro</a>
             <a href="#" class="fcorpo">Estoque</a>
             <a href="{{ url_for('user.perfil') }}" class="fcorpo" id="a-perfil"><span
                     class="material-symbols-outlined perfil">

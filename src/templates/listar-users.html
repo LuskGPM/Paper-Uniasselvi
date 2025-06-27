@@ -1,6 +1,6 @@
 {% extends "base.html" %} {# Indica que este template herda de base.html #}
 
-{% block title %}Gerenciamento de Produtos{% endblock %} {# Define o título da página #}
+{% block title %}Usuários{% endblock %} {# Define o título da página #}
 
 {% block style %}
 
@@ -50,7 +50,7 @@
 {% block content %}
 <div class="container">
     <div class="search-bar">
-        <form action="{{ url_for('produtos.listar_produtos') }}" method="GET">
+        <form action="{{ url_for('user.listar_user') }}" method="GET">
             <input type="text" name="q" placeholder="Buscar por nome..." value="{{ request.args.get('q', '') }}">
             <button type="submit">Buscar</button>
         </form>
@@ -60,42 +60,41 @@
 <table>
     <thead>
         <tr>
-            <th style="text-align: center;">Id</th>
-            <th>Nome</th>
-            <th>Descrição</th>
+            <th style="text-align: center;">Nome</th>
+            <th>Email</th>
+            <th>CPF</th>
             <th></th>
         </tr>
     </thead>
-    <tbody> {# O
-    <tbody> agora está no lugar correto, após o <thead> #}
-            {% for produto in produtos %}
-            <tr>
-                <td style="text-align: center;">{{ produto.id }}</td>
-                <td>{{ produto.nome_produto }}</td>
-                <td>{{ produto.descricao }}</td>
-                <td class="botao-tabela">
-                    <a href="{{ url_for('produtos.detalhes_produto', produto_id = produto.id) }}">
-                        <span class="material-symbols-outlined btn editar-prod">
-                            edit
-                        </span>
-                    </a>
-                    <button type="button" class="btn delete"
-                        onclick="confirmDelete('{{ produto.id }}', '{{ produto.nome_produto }}')">
-                        <span class="material-symbols-outlined">delete_forever</span>
-                    </button>
-                </td>
-            </tr>
-            {% endfor %}
+    <tbody>
+        {% for usuario in usuarios %}
+        <tr>
+            <td style="text-align: center;">{{ usuario.nome }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.cpf }}</td>
+            <td class="botao-tabela">
+                <a href="#">
+                    <span class="material-symbols-outlined btn editar-prod">
+                        edit
+                    </span>
+                </a>
+                <button type="button" class="btn delete"
+                    onclick="confirmDelete('{{ produto.id }}', '{{ produto.nome_produto }}')">
+                    <span class="material-symbols-outlined">delete_forever</span>
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
-{% if not produtos %}
+{% if not usuarios %}
 <p class="alert red">Nenhum Produto encontrado</p>
 {% endif %}
 {% endblock %}
 {% block scripts %}
 <script>
-    function confirmDelete(productId, productName) {
-        if (confirm(`Tem certeza que deseja deletar o produto "${productName}" (ID: ${productId})? Esta ação é irreversível!`)) {
+    function confirmDelete(userName) {
+        if (confirm(`Tem certeza que deseja deletar o usuário "${userName}" Esta ação é irreversível!`)) {
             const form = document.createElement('form');
             form.method = 'POST';
             // A URL é montada corretamente aqui:

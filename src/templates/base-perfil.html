@@ -30,6 +30,11 @@
         transform: scale(1.2);
     }
 
+    .fcorpo-red {
+        color: red;
+        font-weight: 600;
+    }
+
     .active-btn-senha {
         background-color: var(--sandy-brown);
     }
@@ -62,6 +67,8 @@
         <span class="material-symbols-outlined" id="sanduiche">Menu</span>
         <nav class="colapse" id="colapse">
             {% block a %} {% endblock %}
+            <a href="{{ url_for('produtos.listar_produtos') }}" class="fcorpo">Fármacos</a>
+            <a href="{{ url_for('cadastro.cadastrar_produto') }}" class="fcorpo">Cadastro</a>
             <a href="#" class="fcorpo">Estoque</a>
             <a href="{{ url_for('user.perfil') }}" class="fcorpo" id="a-perfil"><span
                     class="material-symbols-outlined perfil">
@@ -82,11 +89,8 @@
 
     <main id="main-perfil">
         <section id="nav-perfil">
-            <h1>Perfil</h1>
-            <a href="">Home</a>
-            <a href="">Cadastro</a>
-            <a href="">Fármacos</a>
-            <a href="{{ url_for('auth.logout') }}">Sair</a>
+            {% block links %} {% endblock %}
+            <a href="{{ url_for('auth.logout') }}" class="fcorpo-red">Sair</a>
         </section>
         <section id="corpo-perfil">
             <div class="container form">
@@ -101,17 +105,10 @@
 
             <form action="{{ url_for('user.analisar_senha') }}" method="post" class="container form"
                 style="display: none;" id="form-senha">
-                <input type="text" placeholder="senha atual" required minlength="8" name="senha_atual" id="senha-atual"
+                <input type="password" placeholder="senha atual" required minlength="8" name="senha_atual" id="senha-atual"
                     class="display-form-senha">
                 <input type="submit">
             </form>
-
-            {% if prosseguir == 'true' %}
-            <form action="{{ url_for('user.atualizar_senha') }}" class="container form">
-                <input type="text" placeholder="nova senha" required minlength="8" name="senha_nova" id="senha_nova">
-                <input type="text" placeholder="confirme a nova senha" required minlength="8" id="repetir_senha">
-            </form>
-            {% endif %}
         </section>
     </main>
 

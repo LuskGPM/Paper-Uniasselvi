@@ -2,6 +2,7 @@
 {% block perfil %}
 Perfil Administrador
 {% endblock %}
-{% block a %}
+{% block links %}
 <a href="{{ url_for('user.cadastrar_user') }}" class="fcorpo">Cadastrar Usuário</a>
+<a href="{{ url_for('user.listar_user') }}" class="fcorpo">Listar Usuários</a>
 {% endblock %}

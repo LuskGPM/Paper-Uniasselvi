@@ -11,13 +11,13 @@ user_bp = Blueprint(
 )
 
 @user_bp.route('/perfil')
-def perfil(prosseguir = 'false'):
+def perfil():
     if current_user.is_authenticated:
         user = User.query.filter_by(cpf=current_user.cpf).first()
         if user.is_adm:
-            return render_template('perfil-adm.html', user=user, prosseguir = prosseguir)
+            return render_template('perfil-adm.html', user=user)
         else:
-            return render_template('perfil-jr.html', user=user, prosseguir = prosseguir)
+            return render_template('perfil-jr.html', user=user)
     else:
         return redirect(url_for('auth.login'))
     
@@ -28,23 +28,40 @@ def analisar_senha():
         user = User.query.filter_by(cpf=current_user.cpf).first()
         senha_form = request.form.get('senha_atual')
         if check_password_hash(user.senha, senha_form):
-            return redirect(url_for('user.perfil', prosseguir = 'true'))
+            return redirect(url_for('user.alterar_senha'))
         else:
             flash('Senha incorreta. Por favor, tente novamente.', 'red')
             return redirect(url_for('user.perfil'))
-
-@user_bp.route('/atualizar_usuario', methods=['GET', 'POST'])
+        
+@user_bp.route('/atualizar_senha/redirect', methods=['GET', 'POST'])
 @login_required
-def atualizar_senha():
-    if request.method == 'POST':
-        senha_nova = request.form.get('senha_nova')
-        senha_hash = generate_password_hash(senha_nova)
-        user = user.query.filter_by(cpf=current_user.cpf).first()
-        user.senha = senha_hash
-        database.session.commit()
-        flash('Senha atualizada com sucesso!', 'green')
+def alterar_senha():
+    return render_template('atualizar-senha.html')
+
+@user_bp.route('/atualizar_senha/alterar', methods=['GET', 'POST'])
+def atualizar_senha(): 
+    try:
+        if request.method == 'POST':
+            senha_nova = request.form.get('senha_nova')
+            repetir_senha = request.form.get('repetir_senha')
+            
+            if senha_nova != repetir_senha:
+                flash('As senhas digitadas devem ser iguais.', 'red')
+                return redirect(url_for('user.alterar_senha'))
+            
+            senha_hash = generate_password_hash(senha_nova)
+            user = User.query.filter_by(cpf=current_user.cpf).first()
+            user.senha = senha_hash
+            database.session.commit()
+            flash('Senha atualizada com sucesso!', 'green')
+            return redirect(url_for('user.perfil'))
+        
+    except Exception as e:
+        database.session.rollback()
+        flash(f'Erro ao atualizar senha: {e}', 'red')
         return redirect(url_for('user.perfil'))
     
+    return redirect(url_for('user.alterar_senha'))
     
 @user_bp.route('/cadastro-user', methods=['GET', 'POST'])
 def cadastrar_user():
@@ -86,3 +103,22 @@ def cadastrar_user():
     
     else:
         return redirect(url_for('auth.login'))
+    
+    
+@user_bp.route('/listar-users', methods=['GET', 'POST'])
+@login_required
+def listar_user():
+    todos_usuarios = User.query.all()
+    return render_template('listar-users.html', usuarios=todos_usuarios)
+
+@user_bp.route('/deletar-user/<string:user_nome>', methods=['GET','POST'])
+def deletar_user(user_nome, user_cpf):
+    try:
+        user = User.query.filter_by(cpf=user_cpf).first()
+        database.session.delete(user)
+        database.session.commit()
+        flash('Usuário deletado com sucesso!', 'green')
+    except Exception as e:
+        database.session.rollback()
+        flash(f'Erro ao deletar usuário: {e}', 'red')
+    return redirect(url_for('user.listar_user'))

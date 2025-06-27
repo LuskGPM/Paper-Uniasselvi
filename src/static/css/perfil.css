@@ -1,0 +1,15 @@
+#main-perfil {
+    display: grid;
+    grid-template-columns: 0.5fr repeat(3, 1fr);
+}
+#nav-perfil {
+    grid-column: 1 / 2;
+    grid-row: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#corpo-perfil {
+    grid-column: 2 / -2;
+    grid-row: 1 / -1;
+}
