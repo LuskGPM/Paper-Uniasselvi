@@ -32,7 +32,6 @@ def login():
         # Verifica se o usuário existe e se a senha está correta
         if user and check_password_hash(user.senha, senha):
             login_user(user)
-            flash('Login realizado com sucesso!', 'green')
             next_page = request.args.get('next')
             return redirect(next_page or url_for('index'))
         else:

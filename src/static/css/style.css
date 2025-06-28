@@ -2,8 +2,7 @@
 
 p,
 a,
-label,
-td{
+label{
     font-family: "Raleway", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -19,7 +18,8 @@ h1,
 h2,
 h3,
 input,
-th {
+th,
+td {
     font-family: "Prompt", sans-serif;
     font-weight: 400;
     font-style: normal;

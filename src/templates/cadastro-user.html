@@ -14,9 +14,9 @@
         <input type="text" name="nome" id="nome" required minlength="3" maxlength="100">
 
         <label for="cpf">CPF</label>
-        <input type="text" name="cpf" id="cpf" required>
+        <input type="text" name="cpf" id="cpf" required maxlength="14">
 
-        <label for="email">Emaik</label>
+        <label for="email">Email</label>
         <input type="email" name="email" id="email" required minlength="5">
 
         <label for="senha">senha</label>
@@ -31,7 +31,7 @@
                 <label for="sim">Administrador</label>
             </div>
             <div class="campo-fieldset">
-                <input type="radio" name="is_adm" id="nao" value="false">
+                <input type="radio" name="is_adm" id="nao" value="false" checked>
                 <label for="nao">Junior</label>
             </div>
         </fieldset>
@@ -42,7 +42,3 @@
     </form>
 </main>
 {% endblock %} {# Finaliza o bloco de conteúdo #}
-
-{% block scripts %} {# Bloco para JavaScripts específicos desta página #}
-<script src="{{ url_for('static', filename='js/colapse-menu.js') }}"></script>
-{% endblock %}

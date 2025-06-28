@@ -1,15 +1,36 @@
 #main-perfil {
     display: grid;
-    grid-template-columns: 0.5fr repeat(3, 1fr);
+    grid-template-columns: 0.5fr repeat(2, 1fr) 0.5fr;
+    grid-template-rows: auto 1fr;
+    gap: 15px;
 }
+
 #nav-perfil {
-    grid-column: 1 / 2;
-    grid-row: 1 / -1;
+    grid-column: 1 / -1;
+    grid-row: 1 / 1;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    gap: 15px;
+    align-self: start;
 }
+
 #corpo-perfil {
-    grid-column: 2 / -2;
-    grid-row: 1 / -1;
+    grid-column: 1 / -1;
+}
+
+@media screen and (min-width: 768px) {
+   
+     #main-perfil {
+        grid-template-rows: auto;
+    }
+
+    #nav-perfil {
+        grid-column: 1 / 1;
+        flex-direction: column;
+    }
+
+    #corpo-perfil {
+        grid-column: 2 / -2;
+    }
+
 }

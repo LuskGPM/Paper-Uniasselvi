@@ -62,7 +62,11 @@ def atualizar_senha():
         return redirect(url_for('user.perfil'))
     
     return redirect(url_for('user.alterar_senha'))
-    
+
+@user_bp.route('/recuperar-senha')
+def recuperar_senha():
+    flash('Entre em contato com o Email ou o Número mencionados', 'yellow')
+    return redirect(url_for('index'))
 @user_bp.route('/cadastro-user', methods=['GET', 'POST'])
 def cadastrar_user():
     
@@ -108,11 +112,24 @@ def cadastrar_user():
 @user_bp.route('/listar-users', methods=['GET', 'POST'])
 @login_required
 def listar_user():
-    todos_usuarios = User.query.all()
-    return render_template('listar-users.html', usuarios=todos_usuarios)
+    if current_user.is_adm:
+        
+        search_query = request.args.get('q','').strip()
+        
+        if search_query:
+            todos_usuarios = User.query.filter(User.nome.ilike(f'%{search_query}%'))
+        else:
+            todos_usuarios = User.query
+        
+        todos_usuarios = todos_usuarios.order_by(User.nome).all()
+        return render_template('listar-users.html', usuarios=todos_usuarios)
+    else:
+        flash('Acesso negado', 'red')
+        return redirect(url_for('user.perfil'))
 
-@user_bp.route('/deletar-user/<string:user_nome>', methods=['GET','POST'])
-def deletar_user(user_nome, user_cpf):
+@user_bp.route('/deletar-user/<string:user_cpf>', methods=['POST'])
+def deletar_user(user_cpf):
+    user_cpf = user_cpf.replace('-', '').replace('.', '').strip()
     try:
         user = User.query.filter_by(cpf=user_cpf).first()
         database.session.delete(user)

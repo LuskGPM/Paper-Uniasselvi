@@ -74,6 +74,13 @@
         <p>&copy; 2025 Gestão da Farmácia. Todos os direitos reservados.</p>
     </footer>
     <script src="{{ url_for('static', filename='js/colapse-menu.js') }}"></script>
+    <script src="https://unpkg.com/imask"></script>
+    <script>
+        const cpfInput = document.getElementById('cpf');
+        IMask(cpfInput, {
+            mask: '000.000.000-00'
+        });
+    </script>
     {% block scripts %}{% endblock %} {# Para JavaScripts específicos da página #}
 </body>
 

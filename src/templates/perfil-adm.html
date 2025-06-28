@@ -2,7 +2,19 @@
 {% block perfil %}
 Perfil Administrador
 {% endblock %}
+{% block style %}
+<style>
+    @import url(../static/css/paleta.css);
+    .fcorpo.adm:hover {
+        color: var(--sandy-brown);
+    }
+    .fcorpo-red:hover {
+        color: var(--red-hover);
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
 {% block links %}
-<a href="{{ url_for('user.cadastrar_user') }}" class="fcorpo">Cadastrar Usuário</a>
-<a href="{{ url_for('user.listar_user') }}" class="fcorpo">Listar Usuários</a>
+<a href="{{ url_for('user.cadastrar_user') }}" class="fcorpo adm">Cadastrar Usuário</a>
+<a href="{{ url_for('user.listar_user') }}" class="fcorpo adm">Listar Usuários</a>
 {% endblock %}

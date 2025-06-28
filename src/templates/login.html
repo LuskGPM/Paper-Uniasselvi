@@ -63,7 +63,9 @@
                 </div>
                 <div class="botoes">
                     <input type="submit">
-                    <input type="button" value="Esqueci minha senha">
+                    <a href="{{ url_for('user.recuperar_senha') }}" class="button">
+                        Esqueci minha senha
+                    </a>
                 </div>
             </form>
         </section>

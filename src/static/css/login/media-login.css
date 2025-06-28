@@ -58,7 +58,7 @@
         flex-direction: row;
     }
 
-    .botoes input {
+    .botoes input, a.button {
         width: 50%;
         font-size: 0.8em;
         padding: 15px;
@@ -89,7 +89,7 @@
         row-gap: 15px;
     }
 
-    form input {
+    form input, a.button {
         padding: 20px;
     }
 }

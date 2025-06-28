@@ -117,16 +117,16 @@ form input[type="submit"]:hover {
     color: var(--cor3);
 }
 
-form input[type="button"] {
+form a.button {
     background-color: var(--cor4);
 }
 
-form input[type="button"]:hover {
+form a.button:hover {
     background-color: var(--cor5);
     color: var(--preto);
 }
 
-.botoes input {
+.botoes input, a {
     border: none;
     color: var(--branco);
     padding: 10px;
@@ -135,12 +135,12 @@ form input[type="button"]:hover {
     cursor: pointer;
 }
 
-.botoes input:hover {
+.botoes input:hover, a.button:hover {
     box-shadow: var(--box-shadow);
     transform: scale(1.05);
 }
 
-.botoes input:active {
+.botoes input:active, a.button:active {
     transform: scale(0.95);
 }
 
@@ -148,4 +148,10 @@ form input[type="button"]:hover {
     display: flex;
     flex-direction: column;
     gap: 7px;
+}
+
+a.button {
+    text-align: center;
+    text-decoration: none;
+    display: block;
 }

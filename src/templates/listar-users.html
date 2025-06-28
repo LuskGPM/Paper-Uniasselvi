@@ -63,6 +63,7 @@
             <th style="text-align: center;">Nome</th>
             <th>Email</th>
             <th>CPF</th>
+            <th>Is_Adm</th>
             <th></th>
         </tr>
     </thead>
@@ -71,15 +72,11 @@
         <tr>
             <td style="text-align: center;">{{ usuario.nome }}</td>
             <td>{{ usuario.email }}</td>
-            <td>{{ usuario.cpf }}</td>
+            <td class="cpf">{{ usuario.cpf }}</td>
+            <td>{{ usuario.is_adm }}</td>
             <td class="botao-tabela">
-                <a href="#">
-                    <span class="material-symbols-outlined btn editar-prod">
-                        edit
-                    </span>
-                </a>
                 <button type="button" class="btn delete"
-                    onclick="confirmDelete('{{ produto.id }}', '{{ produto.nome_produto }}')">
+                    onclick="confirmDelete('{{ usuario.cpf }}', '{{ usuario.nome }}')">
                     <span class="material-symbols-outlined">delete_forever</span>
                 </button>
             </td>
@@ -93,16 +90,25 @@
 {% endblock %}
 {% block scripts %}
 <script>
-    function confirmDelete(userName) {
+    function confirmDelete(UserCPF, userName) {
         if (confirm(`Tem certeza que deseja deletar o usuário "${userName}" Esta ação é irreversível!`)) {
             const form = document.createElement('form');
             form.method = 'POST';
             // A URL é montada corretamente aqui:
-            form.action = `{{ url_for('produtos.deletar_produto', produto_id=0) }}`.replace('0', productId);
+            form.action = `{{ url_for('user.deletar_user', user_cpf='CPF_PLACE') }}`.replace('CPF_PLACE', UserCPF)
 
             document.body.appendChild(form);
             form.submit();
         }
     }
+</script>
+<script>
+    const cpfTd = document.querySelector('.cpf')
+
+    function formatCPF(cpf) {
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
+    }
+
+    cpfTd.innerText = formatCPF(cpfTd.innerText)
 </script>
 {% endblock %}
