@@ -66,9 +66,13 @@ cd <nome_da_pasta_do_projeto>
 
 ```bash
 python -m venv venv
+```
 # No Windows
+```bash
 .\venv\Scripts\activate
+```
 # No macOS/Linux
+```bash
 source venv/bin/activate
 ```
 
