@@ -58,7 +58,7 @@ Siga os passos abaixo para configurar e rodar o projeto em seu ambiente local.
 ### 1. Clonar o Repositório
 
 ```bash
-git clone <URL_DO_SEU_REPOSITORIO>
+git clone <URL_DO_REPOSITORIO>
 cd <nome_da_pasta_do_projeto>
 ```
 
