@@ -91,39 +91,6 @@ o Banco será criado assim que for iniciado a aplicação na pasta '/src/db/farm
 python run.py
 ```
 O servidor estará rodando em http://127.0.0.1:5000/ (ou outra porta, dependendo da sua configuração)
-
-\#\# 📂 Estrutura do Projeto
-
-\`\`\`
-.
-├── venv/                   \# Ambiente virtual (ignorado pelo git)
-├── migrations/             \# Arquivos de migração do Alembic
-├── src/
-│   ├── \_\_init\_\_.py         \# Inicialização da aplicação Flask
-│   ├── app.py              \# Configuração principal da aplicação e banco de dados
-│   ├── models.py           \# Definição dos modelos de banco de dados (User, Produtos, SolicitarAlteracao)
-│   ├── routes/
-│   │   ├── \_\_init\_\_.py
-│   │   ├── auth.py         \# Rotas de autenticação (login, cadastro, logout)
-│   │   ├── main.py         \# Rotas principais (dashboard)
-│   │   ├── produtos.py     \# Rotas de gestão de produtos (admin e redirecionamento junior)
-│   │   ├── alteracao.py    \# Rotas de solicitação de alteração (junior) e aprovação/rejeição (admin)
-│   │   └── user.py         \# Rotas de gerenciamento de usuário e administração (listar solicitações admin)
-│   ├── static/             \# Arquivos estáticos (CSS, JS, imagens)
-│   └── templates/          \# Arquivos de template HTML (Jinja2)
-│       ├── base.html       \# Template base para herança
-│       ├── auth/           \# Templates de autenticação
-│       ├── main/           \# Templates do dashboard
-│       ├── produtos/       \# Templates relacionados a produtos (detalhes\_admin, detalhes\_junior)
-│       ├── admin/          \# Templates para funcionalidades administrativas (listar\_solicitacoes)
-│       └── junior/         \# Templates para funcionalidades do júnior (minhas\_solicitacoes)
-├── .env                    \# Variáveis de ambiente (ex: CHAVE\_SECRETA, DATABASE\_URL)
-├── .flaskenv               \# Variáveis de ambiente Flask (ex: FLASK\_APP)
-├── requirements.txt        \# Dependências do projeto
-├── run.py                  \# Script para iniciar a aplicação
-└── README.md               \# Este arquivo!
-\`\`\`
-
 ---
 
 \#\# 👤 Níveis de Acesso
