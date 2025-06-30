@@ -59,21 +59,19 @@
     #a-perfil:hover {
         background-color: transparent;
     }
+
+    h2 a.ftitulo {
+        color: white;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.603);
+    }
 </style>
 
 <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div>
-        <p class="alert {{category}}">{{ message }}</p>
-    </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
     <header class="header">
         <nav class="nav">
-            <h2><a href="{{ url_for('index') }}" class="ftitulo">Logo</a></h2>
+            <h2>
+                <a href="{{ url_for('index') }}" class="ftitulo">LucasPharma</a>
+            </h2>
             <span id="sanduiche" class="material-symbols-outlined">
                 menu
             </span>
@@ -99,31 +97,31 @@
     <main class="main">
         <section id="info-main" class="info-main container">
             <div class="item">
-                <h3 class="quantidade" id="quant-1">01</h3>
-                <p>Produtos</p>
-            </div>
-            <div class="item">
-                <h3 class="quantidade" id="quant-2">02</h3>
-                <p>Itens Vendidos</p>
-            </div>
-            <div class="item">
-                <h3 class="quantidade" id="quant-3">03</h3>
-                <p>Estoques em alerta</p>
+                <h3 class="quantidade">Sistema para gestão de produtos farmacêuticos</h3>
+                <p>Abaixo você poderá entender alguns dos principais funcionamentos do nosso sistema</p>
             </div>
         </section>
         <section class="question-main container">
             <h1>Como funciona?</h1>
             <div class="item">
                 <h2>Como cadastrar novos produtos?</h2>
+                <p class="info">Primeiro realize seu login previamente disponibilizado pelo administrador, após isto, acesse "cadastro" e preencha todos os campos necessários.</p>
             </div>
             <div class="item">
                 <h2>Como ajustar os preços?</h2>
+                <p class="info">Acesse "Fármacos", clique no botão de editar e você terá acesso aos detalhes dos fármacos, lá poderá alterar os preços de venda, com base nas orientações da empresa.</p>
             </div>
             <div class="item">
                 <h2>Como ver disponibilidade?</h2>
+                <p class="info">Acesse "Fármacos", de cara você encontrará a quantidade em estoque de cada fármaco. Atualize sempre que necessário com base nas orientações da empresa.</p>
             </div>
             <div class="item">
-                <h2>Como gerenciar o estoque?</h2>
+                <h2>Como navegar pelo sistema?</h2>
+                <p class="info">A barra de navegação leva a todas as páginas necessárias. Para atualizar a senha, ver as solicitações ou sair da conta, acesse o Perfil na barra de navegações.</p>
+            </div>
+            <div class="item">
+                <h2>Dúvidas?</h2>
+                <p class="info">Para acessar novamente esta página, clique no título principal de qualquer página do sistema. Entre em contato com os administradores atráves do Email ou celular abaixo.</p>
             </div>
         </section>
         <section class="contatos container">
@@ -141,9 +139,8 @@
     <footer class="container">
         <div class="links-footer">
             <a href="#info-main">Inicio</a>
-            <a href="#">Estoque</a>
-            <a href="#">Cadastro</a>
-            <a href="#">Preços</a>
+            <a href="{{ url_for('produtos.listar_produtos') }}">Fármacos</a>
+            <a href="{{ url_for('cadastro.cadastrar_produto') }}">Cadastro</a>
         </div>
         <div class="direitos">
             <h1>&copy; 2025 Gestão da Farmácia. Todos os direitos reservados.</h1>

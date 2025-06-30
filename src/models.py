@@ -48,3 +48,22 @@ class Produtos(database.Model):
 
     def __repr__(self):
         return '<produtos %r>' % self.nome_produto
+    
+    
+class SolicitarAlteracao(database.Model):
+    id = database.Column(database.Integer, primary_key=True, autoincrement=True)
+    id_prod = database.Column(database.Integer, nullable=False)
+    campo_alterado = database.Column(database.String(100), nullable=False)
+    valor_anterior = database.Column(database.String(100), nullable=False)
+    valor_novo = database.Column(database.String(100), nullable=False)
+    solicitante_cpf = database.Column(database.String(11), database.ForeignKey('user.cpf'), nullable=False)
+    solicitante = database.relationship('User', backref='solicitacoes_feitas', foreign_keys=[solicitante_cpf])
+    status = database.Column(database.String(100), nullable=False, default='Pendente')
+    data_solicitacao = database.Column(database.DateTime, default=datetime.now(timezone.utc))
+    aprovador_cpf = database.Column(database.String(11), database.ForeignKey('user.cpf'), nullable=True)
+    aprovador = database.relationship('User', backref='solicitacoes_aprovadas', foreign_keys=[aprovador_cpf])
+    data_aprovacao = database.Column(database.DateTime, nullable=True)
+    motivo_rejeicao = database.Column(database.String(100), nullable=True)
+    
+    def __repr__(self):
+        return '<SolicitarAlteracao %r>' % self.id

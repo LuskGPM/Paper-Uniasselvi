@@ -1,0 +1,135 @@
+{# templates/junior/minhas_solicitacoes.html #}
+{% extends "base.html" %}
+
+{% block title %}Minhas Solicitações de Alteração{% endblock %}
+
+{%  block style %}
+<style>
+    .tabela {
+        max-width: 90vw;
+        overflow-x: auto;
+    }
+    .pendentes {
+        background-color: rgba(255, 255, 0, 0.055);
+    }
+    .accept {
+        background-color: rgba(0, 128, 0, 0.073);
+    }
+    .recused {
+        background-color: rgba(255, 0, 0, 0.052);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>Minhas Solicitações de Alteração</h2>
+
+<h3>Solicitações Pendentes</h3>
+{% if pendentes %}
+
+<div class="tabela">
+    <table class="pendentes">
+        <thead>
+            <tr>
+                <th>ID da Solicitação</th>
+                <th>Produto (ID)</th>
+                <th>Campo</th>
+                <th>Valor Anterior</th>
+                <th>Valor Novo</th>
+                <th>Data da Solicitação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for solicitacao in pendentes %}
+            <tr>
+                <td>{{ solicitacao.id }}</td>
+                <td>{{ solicitacao.id_prod }}</td>
+                <td>{{ solicitacao.campo_alterado }}</td>
+                <td>{{ solicitacao.valor_anterior }}</td>
+                <td>{{ solicitacao.valor_novo }}</td>
+                <td>{{ solicitacao.data_solicitacao.strftime('%d/%m/%Y %H:%M') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p style="color: rgb(0, 187, 216);">Você não tem solicitações pendentes no momento.</p>
+{% endif %}
+<h3>Solicitações Aceitas</h3>
+{% if aprovadas %}
+<div class="tabela">
+    <table class="accept">
+        <thead>
+            <tr>
+                <th>ID da Solicitação</th>
+                <th>Produto (ID)</th>
+                <th>Campo</th>
+                <th>Valor Anterior</th>
+                <th>Valor Novo</th>
+                <th>Data da Solicitação</th>
+                <th>Data da Aprovação</th>
+                <th>Aprovador</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for solicitacao in aprovadas %}
+            <tr>
+                <td>{{ solicitacao.id }}</td>
+                <td>{{ solicitacao.id_prod }}</td>
+                <td>{{ solicitacao.campo_alterado }}</td>
+                <td>{{ solicitacao.valor_anterior }}</td>
+                <td>{{ solicitacao.valor_novo }}</td>
+                <td>{{ solicitacao.data_solicitacao.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>{{ solicitacao.data_aprovacao.strftime('%d/%m/%Y %H:%M') if solicitacao.data_aprovacao else 'N/A' }}
+                </td>
+                <td>{{ solicitacao.aprovador.nome if solicitacao.aprovador else 'N/A' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p style="color: rgb(0, 187, 216);">Você não tem solicitações pendentes no momento.</p>
+{% endif %}
+
+<h3>Solicitações Recusadas</h3>
+{% if rejeitadas %}
+<div class="tabela">
+    <table class="recused">
+        <thead>
+            <tr>
+                <th>ID da Solicitação</th>
+                <th>Produto (ID)</th>
+                <th>Campo</th>
+                <th>Valor Anterior</th>
+                <th>Valor Novo</th>
+                <th>Data da Solicitação</th>
+                <th>Data da Recusa</th>
+                <th>Motivo da Recusa</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for solicitacao in rejeitadas %}
+            <tr>
+                <td>{{ solicitacao.id }}</td>
+                <td>{{ solicitacao.id_prod }}</td>
+                <td>{{ solicitacao.campo_alterado }}</td>
+                <td>{{ solicitacao.valor_anterior }}</td>
+                <td>{{ solicitacao.valor_novo }}</td>
+                <td>{{ solicitacao.data_solicitacao.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>{{ solicitacao.data_aprovacao.strftime('%d/%m/%Y %H:%M') if solicitacao.data_aprovacao else 'N/A' }}
+                </td>
+                <td>{{ solicitacao.motivo_rejeicao if solicitacao.motivo_rejeicao else 'N/A' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p style="color: rgb(0, 187, 216);">Você não tem solicitações pendentes no momento.</p>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

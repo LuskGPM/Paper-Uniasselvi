@@ -1,5 +1,25 @@
-{% extends "base.html" %}
+{% extends "base-perfil.html" %}
 {% block title %}Perfil{% endblock %}
+{% block perfil %}
+Perfil
+{% endblock %}
+{% block style %}
+<style>
+    @import url(../static/css/paleta.css);
+
+    .fcorpo.jr:hover {
+        color: var(--sandy-brown);
+    }
+
+    .fcorpo-red:hover {
+        color: var(--red-hover);
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+{% block links %}
+<a class="fcorpo jr" href="{{ url_for('alteracao.minhas_solicitacoes') }}">Minhas Solicitações</a>
+{% endblock %}
 {% block content %}
 
 {% endblock %}

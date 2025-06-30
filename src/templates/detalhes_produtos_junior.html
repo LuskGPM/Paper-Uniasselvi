@@ -1,0 +1,92 @@
+{% extends "base.html" %} {# Indica que este template herda de base.html #}
+
+{% block title %}Cadastro de Fármacos{% endblock %} {# Define o título da página #}
+
+{% block style %}
+<style>
+    .edit {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .edit:hover{
+        background-color: #0603ad;
+    }
+
+    .save {
+        display: none;
+        background-color: #2de859;
+        color: white;
+    }
+
+    .save.ativo:hover{
+        background-color: #04b32d;
+    }
+
+    .reset {
+        background-color: #dc3545;
+        color: white;
+        display: none;
+    }
+
+    .reset.ativo:hover {
+        background-color: #e00016;
+    }
+
+    .ativo{
+        display: block;
+    }
+    p.input, p.txtarea, #data-compra {
+        background-color: #e3e3e3;
+        color: rgb(113, 113, 113);
+    }
+
+</style>
+{% endblock %}
+
+{% block content %} {# Aqui começa o conteúdo específico desta página #}
+<main class="main-utopic">
+    <h1 style="margin-bottom: 10px;">Detalhes do Fármaco: {{ produto.nome_produto }}</h1>
+
+    <form action="{{ url_for('alteracao.solicitar_alteracao', produto_id=produto.id) }}" class="container form" method="post" id="detalhes-edit-prod">
+
+        <input type="hidden" name="id" value="{{ produto.id }}">
+
+        <label for="nome">Nome do Fármaco</label>
+        <p id="nome" class="input">{{ produto.nome_produto }}</p>
+
+        <label for="desc">Descrição</label>
+        <p id="desc" class="txtarea">{{ produto.descricao }}</p>
+
+        <label for="preco_compra">Preço de Compra (R$)</label>
+        <p class="input" id="preco_compra" >{{ produto.preco_compra }}</p>
+
+        <label for="preco_venda">Preço de Venda (R$)</label>
+        <input type="number" name="preco_venda" id="preco_venda" min="0" step="0.01" disabled value="{{ produto.preco_venda }}">
+
+        <label for="quantidade">Quantidade</label>
+        <input type="number" name="quantidade" id="quantidade" min="1" required disabled value="{{ produto.quantidade }}">
+
+        <label for=" fornecedor">Fornecedor</label>
+        <p class="input" id="fornecedor">{{ produto.fornecedor }}</p>
+
+        <label for="data-compra">Data de Compra</label>
+        <input type="month" id="data-compra" required disabled
+            value="{{ produto.data_compra.strftime('%Y-%m') if produto.data_validade else '' }}">
+
+        <label for="data-validade">Data de validade</label>
+        <input type="month" name="data-validade" id="data-validade" required disabled
+            value="{{ produto.data_validade.strftime('%Y-%m') if produto.data_validade else '' }}">
+
+        <div class="group-buttons">
+            <input type="button" value="Editar" id="edit" style="grid-column: 1 / 2;" class="edit">
+            <input type="submit" value="Salvar" id="save" style="grid-column: 3 / -1;" class="save">
+            <input type="reset" value="Resetar" id="reset" style="grid-column: 2 / -2; grid-row: 2 / -1;" class="reset">
+        </div>
+    </form>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/detalhes-prod-jr.js') }}"></script>
+{% endblock %}

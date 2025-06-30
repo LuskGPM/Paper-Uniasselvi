@@ -32,11 +32,13 @@ def create_app():
         from .routes.cadastro_prod import cadastro_bp
         from .routes.produtos import produtos_bp
         from .routes.user import user_bp
+        from .routes.solict_alteracao import alteracao_bp
         
         app.register_blueprint(cadastro_bp)
         app.register_blueprint(produtos_bp)
         app.register_blueprint(auth_bp)
         app.register_blueprint(user_bp)
+        app.register_blueprint(alteracao_bp)
         
     @app.route('/')
     def index():

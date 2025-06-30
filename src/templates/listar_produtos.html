@@ -5,6 +5,18 @@
 {% block style %}
 
 <style>
+    @media screen and (max-width: 768px) {
+        .desc-td {
+            font-size: 0.7em;
+        }
+    }
+
+    @media screen and (min-width: 769px) {
+        .desc-td {
+            font-size: 1.1em;
+        }
+    }
+
     .btn {
         display: flex;
         justify-content: center;
@@ -63,26 +75,29 @@
             <th style="text-align: center;">Id</th>
             <th>Nome</th>
             <th>Descrição</th>
+            <th>Quantidade</th>
             <th></th>
         </tr>
     </thead>
-    <tbody> {# O
-    <tbody> agora está no lugar correto, após o <thead> #}
-            {% for produto in produtos %}
+    <tbody> 
+        {% for produto in produtos %}
             <tr>
                 <td style="text-align: center;">{{ produto.id }}</td>
                 <td>{{ produto.nome_produto }}</td>
-                <td>{{ produto.descricao }}</td>
+                <td class="desc-td">{{ produto.descricao }}</td>
+                <td style="text-align: center;">{{ produto.quantidade }}</td>
                 <td class="botao-tabela">
-                    <a href="{{ url_for('produtos.detalhes_produto', produto_id = produto.id) }}">
-                        <span class="material-symbols-outlined btn editar-prod">
+                    <a href="{{ url_for('produtos.detalhes_produto', produto_id = produto.id) }}" class="btn editar-prod">
+                        <span class="material-symbols-outlined">
                             edit
                         </span>
                     </a>
+                    {% if is_adm == 'true'%}
                     <button type="button" class="btn delete"
                         onclick="confirmDelete('{{ produto.id }}', '{{ produto.nome_produto }}')">
                         <span class="material-symbols-outlined">delete_forever</span>
                     </button>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}

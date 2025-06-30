@@ -1,0 +1,114 @@
+{# templates/admin/listar_solicitacoes.html #}
+{% extends "base.html" %}
+
+{% block title %}Solicitações de Aprovação{% endblock %}
+{% block style %}
+<style>
+    .table-list {
+        max-width: 90vw;
+        overflow-x: auto;
+    }
+
+    .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 50px;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .editar-prod {
+        background-color: #28a745;
+    }
+
+    .editar-prod:hover {
+        background-color: #1e7e34;
+    }
+
+    .botao-tabela {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .delete {
+        background-color: red;
+    }
+
+    .delete:hover {
+        background-color: rgb(172, 0, 0);
+    }
+
+    button {
+        border: none;
+        background: transparent;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h3 style="color: blue;">Solicitações de Alteração Pendentes</h3>
+
+{% if solicitacoes %}
+<div class="table-list">
+    <table>
+        <thead>
+            <tr>
+                <th>ID da Solicitação</th>
+                <th>ID do Produto</th>
+                <th>Campo Alterado</th>
+                <th>Valor Anterior</th>
+                <th>Valor Novo</th>
+                <th colspan="2" style="text-align: center;">Solicitante</th>
+                <th>Data da Solicitação</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for solicitacao in solicitacoes %}
+            <tr>
+                <td>{{ solicitacao.id }}</td>
+                <td>{{ solicitacao.id_prod }}</td> {# Exibindo id_prod #}
+                <td>{{ solicitacao.campo_alterado }}</td>
+                <td>R${{ solicitacao.valor_anterior }}</td>
+                <td>R${{ solicitacao.valor_novo }}</td>
+                <td>{{ solicitacao.solicitante.nome }}</td>
+                <td class="cpf">{{ solicitacao.solicitante.cpf }}</td>
+                <td>{{ solicitacao.data_solicitacao.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td class="botao-tabela">
+                    <form action="{{ url_for('alteracao.aprovar_solicitacao', solicitacao_id = solicitacao.id) }}" method="post">
+                        <button type="submit">
+                            <span class="material-symbols-outlined btn editar-prod">
+                            check_circle
+                        </span>
+                        </button>
+                    </form>
+                    <form action="{{ url_for('alteracao.rejeitar_solicitacao', solicitacao_id = solicitacao.id) }}" method="post">
+                        <button type="submit" class="btn delete">
+                            <span class="material-symbols-outlined">delete_forever</span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p>Não há solicitações de alteração pendentes no momento.</p>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+<script>
+    const cpfTd = document.querySelector('.cpf')
+
+    function formatCPF(cpf) {
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
+    }
+
+    cpfTd.innerText = formatCPF(cpfTd.innerText)
+</script>
+{% endblock %}

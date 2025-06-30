@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from ..models import User
+from ..models import SolicitarAlteracao, User
 from ..app import database
+from datetime import datetime, timezone
 
 user_bp = Blueprint(
     'user',
@@ -139,3 +140,17 @@ def deletar_user(user_cpf):
         database.session.rollback()
         flash(f'Erro ao deletar usuário: {e}', 'red')
     return redirect(url_for('user.listar_user'))
+
+@user_bp.route('/admin/solicitacoes', methods=['GET'])
+@login_required
+def listar_solicitacoes():
+    if not current_user.is_adm:
+        flash('Acesso negado. Esta área é exclusiva para administradores.', 'red')
+        return redirect(url_for('main.dashboard'))
+
+    # 2. Consulta as solicitações de alteração com status 'Pendente'
+    # Ordenamos pela data de solicitação para ver as mais antigas primeiro.
+    solicitacoes = SolicitarAlteracao.query.filter_by(status='Pendente').order_by(SolicitarAlteracao.data_solicitacao.asc()).all()
+
+    # 3. Renderiza o template, passando a lista de solicitações para ele
+    return render_template('listar_solicitacao_adm.html', solicitacoes=solicitacoes)

@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, flash, get_flashed_messages, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from ..app import database
-from ..models import Produtos
+from ..models import Produtos, User
 from datetime import datetime, timezone
 
 produtos_bp = Blueprint(
@@ -14,6 +14,9 @@ produtos_bp = Blueprint(
 @login_required
 def listar_produtos():
     search_query = request.args.get('q','').strip()
+    is_amd = 'false'
+    if current_user.is_adm:
+        is_amd = 'true'
     
     if search_query:
         todos_produtos = Produtos.query.filter(Produtos.nome_produto.ilike(f'%{search_query}%'))
@@ -21,27 +24,31 @@ def listar_produtos():
         todos_produtos = Produtos.query
     
     todos_produtos = todos_produtos.order_by(Produtos.nome_produto).all()
-    return render_template('listar_produtos.html', produtos=todos_produtos)
+    return render_template('listar_produtos.html', produtos=todos_produtos, is_adm = is_amd)
 
 @produtos_bp.route('/produtos/list/<int:produto_id>')
 def detalhes_produto(produto_id):
     produto = Produtos.query.get_or_404(produto_id)
-    return render_template('detalhes_produtos.html', produto = produto)
+    user = User.query.filter_by(cpf=current_user.cpf).first()
+    if user.is_adm:
+        return render_template('detalhes_produtos_adm.html', produto = produto)
+    else:
+        return render_template('detalhes_produtos_junior.html', produto = produto)
 
 @produtos_bp.route('/produtos/update/<int:produto_id>', methods=['POST'])
 def update_produto(produto_id):
     produto = Produtos.query.get_or_404(produto_id)
     
-    try:
-        produto.nome_produto = request.form['nome']
-        produto.descricao = request.form['desc']
-        produto.preco_compra = float(request.form['preco_compra'])
+    try:  
+        produto.nome_produto = request.form.get('nome')
+        produto.descricao = request.form.get('desc')
+        produto.preco_compra = float(request.form.get('preco_compra'))
         preco_venda_str = request.form['preco_venda']
         if preco_venda_str:
             produto.preco_venda=float(preco_venda_str)
         produto.quantidade = int(request.form['quantidade'])
-        produto.fornecedor = request.form['fornecedor']
-        data_compra_str = str(request.form['data-compra'])
+        produto.fornecedor = request.form.get('fornecedor')
+        data_compra_str = str(request.form.get('data-compra'))
         
         if data_compra_str:
             produto.data_compra = datetime.strptime(data_compra_str, '%Y-%m').replace(day=1, tzinfo=timezone.utc)
@@ -53,7 +60,7 @@ def update_produto(produto_id):
         database.session.commit()
         flash(f'Fármaco atualizado com sucesso', 'green')
         return redirect(url_for('produtos.detalhes_produto', produto_id=produto.id))
-    
+
     except ValueError as e:
         flash(f'Erro de validação de dados: {e}', 'red')
         return redirect(url_for('produtos.detalhes_produto', produto_id=produto.id))
@@ -64,6 +71,7 @@ def update_produto(produto_id):
  
 @produtos_bp.route('/produtos/deletar/<int:produto_id>', methods=['POST'])
 def deletar_produto(produto_id):
+    
     produto = database.session.get(Produtos, produto_id) 
 
     if not produto:
