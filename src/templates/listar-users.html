@@ -103,12 +103,18 @@
     }
 </script>
 <script>
-    const cpfTd = document.querySelector('.cpf')
+    const cpfTd = document.querySelectorAll('.cpf'); // Seleciona TODOS os elementos com a classe 'cpf'
 
     function formatCPF(cpf) {
-        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
+        // Remove qualquer caractere não numérico antes de formatar
+        const cleanedCpf = cpf.replace(/\D/g, '');
+        // Aplica a formatação
+        return cleanedCpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
     }
 
-    cpfTd.innerText = formatCPF(cpfTd.innerText)
+    // Itera sobre cada elemento encontrado e aplica a formatação
+    cpfTd.forEach(element => {
+        element.innerText = formatCPF(element.innerText);
+    });
 </script>
 {% endblock %}

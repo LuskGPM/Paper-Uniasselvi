@@ -56,8 +56,21 @@ class SolicitarAlteracao(database.Model):
     campo_alterado = database.Column(database.String(100), nullable=False)
     valor_anterior = database.Column(database.String(100), nullable=False)
     valor_novo = database.Column(database.String(100), nullable=False)
-    solicitante_cpf = database.Column(database.String(11), database.ForeignKey('user.cpf'), nullable=False)
+    solicitante_cpf = database.Column(
+        database.String(11), 
+        database.ForeignKey('user.cpf', ondelete='CASCADE'), # Adicionado ondelete='CASCADE' aqui
+        nullable=False
+    )
     solicitante = database.relationship('User', backref='solicitacoes_feitas', foreign_keys=[solicitante_cpf])
+
+    # Se o aprovador_cpf também precisar ser nulo ou cascata, você pode adicionar a mesma lógica:
+    aprovador_cpf = database.Column(
+        database.String(11), 
+        database.ForeignKey('user.cpf', ondelete='SET NULL'), # Ou 'CASCADE' se a solicitaç"ão deve sumir se o aprovador for deletado
+        nullable=True
+    )
+    aprovador = database.relationship('User', backref='solicitacoes_aprovadas', foreign_keys=[aprovador_cpf])
+
     status = database.Column(database.String(100), nullable=False, default='Pendente')
     data_solicitacao = database.Column(database.DateTime, default=datetime.now(timezone.utc))
     aprovador_cpf = database.Column(database.String(11), database.ForeignKey('user.cpf'), nullable=True)

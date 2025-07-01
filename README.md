@@ -96,9 +96,11 @@ O servidor estará rodando em http://127.0.0.1:5000/ (ou outra porta, dependendo
 \#\# 👤 Níveis de Acesso
 
 * **Administrador (\`is\_adm = True\`):**
+    * Login e senha = admin@sistema.com / 12345678
     * Acesso total à gestão de produtos (criar, ler, atualizar, excluir).
     * Acesso ao painel de gerenciamento de solicitações de alteração (aprovar/rejeitar).
 * **Júnior (\`is\_adm = False\`):**
+    * Login e senha = junior@sistema.com / 12345678
     * Apenas visualização de produtos.
     * Capacidade de enviar solicitações de alteração para aprovação.
     * Página de acompanhamento do status de suas próprias solicitações.
