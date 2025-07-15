@@ -45,3 +45,15 @@ def logout():
     logout_user()
     flash('Você foi desconectado.', 'yellow')
     return redirect(url_for('auth.login'))
+
+@auth_bp.route('/createadm') 
+def criarAdm():
+    cpf = '12345678900'
+    nome = 'adm'
+    email = 'adm.unico@sistema.com'
+    senha = generate_password_hash('12345678')
+    is_adm = True
+    new_user = User(cpf=cpf, nome=nome, email=email, senha=senha, is_adm=is_adm)
+    database.session.add(new_user)
+    database.session.commit()
+    return redirect(url_for('auth.login'))

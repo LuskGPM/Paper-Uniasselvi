@@ -62,7 +62,7 @@ git clone <URL_DO_REPOSITORIO>
 cd <nome_da_pasta_do_projeto>
 ```
 
-### 2. Criar e Ativar o Ambiente Virtual (Opcional)
+### 2. Criar e Ativar o Ambiente Virtual
 
 ```bash
 python -m venv venv
@@ -94,13 +94,13 @@ O servidor estará rodando em http://127.0.0.1:5000/ (ou outra porta, dependendo
 ---
 
 \#\# 👤 Níveis de Acesso
+* *Caso não haja nenhum administrador cadastrado, acesse a url: http://127.0.0.1:5000/createadm
 
 * **Administrador (\`is\_adm = True\`):**
-    * Login e senha = admin@sistema.com / 12345678
+    * Login e senha = adm.unico@sistema.com / 12345678
     * Acesso total à gestão de produtos (criar, ler, atualizar, excluir).
     * Acesso ao painel de gerenciamento de solicitações de alteração (aprovar/rejeitar).
 * **Júnior (\`is\_adm = False\`):**
-    * Login e senha = junior@sistema.com / 12345678
     * Apenas visualização de produtos.
     * Capacidade de enviar solicitações de alteração para aprovação.
     * Página de acompanhamento do status de suas próprias solicitações.
