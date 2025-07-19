@@ -118,3 +118,9 @@ Sinta-se à vontade para explorar, modificar e melhorar este projeto.
 Este projeto é de código aberto e está disponível sob a \[Licença MIT\](https://opensource.org/licenses/MIT).
 
 ---
+\#\# Criador
+
+Este Projeto foi criado pelo aluno da Universidade Leonardo da Vinci Lucas Gabriel Pereira de Melo para a realização do Paper da disciplina de: *Imersão Profissional: Implementação de uma Aplicação*.
+O uso deste projeto está totalmete restrito ao universitário Lucas Gabriel Pereira de Melo (a mim mesmo).
+
+---
